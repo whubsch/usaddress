@@ -1,25 +1,22 @@
-Training your own model
-=======================
+# Training your own model
 
 You can always install a stable version of usaddress from [the Python Package Index](https://pypi.python.org/pypi/usaddress) by running `pip install usaddress`. But what if you want to **train your own version** of the model to do things that the current release isn't capable of? By labelling and training your own data, you'll be able to:
 
-1. parse addresses that aren't yet supported 
-2. push usaddress beyond its limits 
+1. parse addresses that aren't yet supported
+2. push usaddress beyond its limits
 3. help make this library work better for everyone
 
-What are we doing?
---------
+## What are we doing?
 
 Creating a new model involves three core steps:
 
 1. **Labeling** addresses – help the machine understand them
-2. **Training** the model – let usaddress see patterns in the data 
+2. **Training** the model – let usaddress see patterns in the data
 3. **Testing** the model - make sure your changes made things better
 
 Sound interesting? Let's look at the steps in more detail.
 
-How it's done
------
+## How it's done
 
 **0. Create a local version of the repo.**
 
@@ -28,10 +25,10 @@ The first step in contributing to any open-source project is to fork the reposit
 After forking the repo, you'll need to get usaddress running on your machine. Running the following commands in the command line will install the proper dependencies and initialize a development version of usaddress:
 
 ```
-cd usaddress  
-pip install -r requirements.txt  
-python setup.py develop  
-parserator train training/labeled.xml usaddress 
+cd usaddress
+pip install -r requirements.txt
+python setup.py develop
+parserator train training/labeled.xml usaddress
 ```
 
 If you run into problems building your own copy of usaddress, don't hesitate to [open an issue](https://github.com/datamade/usaddress/issues/new) and the DataMade team will help you get started.
@@ -40,7 +37,7 @@ If you run into problems building your own copy of usaddress, don't hesitate to 
 
 Once you have a local version of usaddress up and running, you're ready to start collecting addresses.
 
-For each pattern that fails, you'll want to collect a handful of examples to make into **training data.** These examples should correspond to real world addresses that make usaddress fail - it's important to make sure that you're not influencing usaddress with how you *think* addresses work, as opposed to how they *really* work. To get started collecting your examples, make a new CSV file in the `training/` directory. For this guide, we'll call the file `new_addresses.csv`.
+For each pattern that fails, you'll want to collect a handful of examples to make into **training data.** These examples should correspond to real world addresses that make usaddress fail - it's important to make sure that you're not influencing usaddress with how you _think_ addresses work, as opposed to how they _really_ work. To get started collecting your examples, make a new CSV file in the `training/` directory. For this guide, we'll call the file `new_addresses.csv`.
 
 Since usaddress is smart, it usually only needs 4-6 examples to understand any given pattern. Grab a few examples and copy the addresses to `training/new_addresses.csv`, separating each address with a new line:
 
@@ -75,23 +72,23 @@ measure_performance/testing_data/new_tests.csv
 "Barack Obama, 1600 Pennsylvania Ave NW, Washington, DC 20500"
 ```
 
-Resist the urge to make your testing data identical to your training data. For the most robust results, testing and training data should be **different instances of the same pattern.** This ensures that usaddress is learning to see new patterns in addresses, and not merely learning to regurgitate the information you've fed into it. 
+Resist the urge to make your testing data identical to your training data. For the most robust results, testing and training data should be **different instances of the same pattern.** This ensures that usaddress is learning to see new patterns in addresses, and not merely learning to regurgitate the information you've fed into it.
 
 **2. Label your addresses so that usaddress can understand them.**
 
-Unfortunately, usaddress doesn't read text the same way that humans do. It needs to have **labeled data** to help it make sense of the address patterns you're feeding into it. For our training format, we use XML tagged strings corresponding to the [United States Thoroughfare, Landmark, and Postal Address Data Standard](http://www.urisa.org/advocacy/united-states-thoroughfare-landmark-and-postal-address-data-standard/). 
+Unfortunately, usaddress doesn't read text the same way that humans do. It needs to have **labeled data** to help it make sense of the address patterns you're feeding into it. For our training format, we use XML tagged strings corresponding to the [United States Thoroughfare, Landmark, and Postal Address Data Standard](http://www.urisa.org/advocacy/united-states-thoroughfare-landmark-and-postal-address-data-standard/).
 
 After it's been labeled, training data looks something like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
   <AddressCollection>
-    <AddressString> <PlaceName>Soldotna</PlaceName> , <StateName>AK</StateName> <ZipCode>996699</ZipCode> </AddressString> 
-    <AddressString> <AddressNumber>9112</AddressNumber> <StreetName>Mendenhall</StreetName> <StreetName>Mall</StreetName> <StreetNamePostType>Road</StreetNamePostType> , <PlaceName>Juneau</PlaceName> , <StateName>AK</StateName> <ZipCode>99801</ZipCode> </AddressString> 
-    <AddressString> <USPSBoxType>Box</USPSBoxType> # <USPSBoxID>63</USPSBoxID> , <PlaceName>Cardova</PlaceName> , <StateName>AK</StateName> <ZipCode>99574</ZipCode> </AddressString> 
-    <AddressString> <AddressNumberPrefix>32</AddressNumberPrefix> - <AddressNumber>233</AddressNumber> <StreetName>M</StreetName> <StreetNamePostType>Street</StreetNamePostType> , <PlaceName>Elmendorf</PlaceName> <PlaceName>Afb</PlaceName> , <StateName>AK</StateName> <ZipCode>99506</ZipCode> </AddressString> 
+    <AddressString> <PlaceName>Soldotna</PlaceName> , <StateName>AK</StateName> <ZipCode>996699</ZipCode> </AddressString>
+    <AddressString> <AddressNumber>9112</AddressNumber> <StreetName>Mendenhall</StreetName> <StreetName>Mall</StreetName> <StreetNamePostType>Road</StreetNamePostType> , <PlaceName>Juneau</PlaceName> , <StateName>AK</StateName> <ZipCode>99801</ZipCode> </AddressString>
+    <AddressString> <USPSBoxType>Box</USPSBoxType> # <USPSBoxID>63</USPSBoxID> , <PlaceName>Cardova</PlaceName> , <StateName>AK</StateName> <ZipCode>99574</ZipCode> </AddressString>
+    <AddressString> <AddressNumberPrefix>32</AddressNumberPrefix> - <AddressNumber>233</AddressNumber> <StreetName>M</StreetName> <StreetNamePostType>Street</StreetNamePostType> , <PlaceName>Elmendorf</PlaceName> <PlaceName>Afb</PlaceName> , <StateName>AK</StateName> <ZipCode>99506</ZipCode> </AddressString>
     <AddressString><StreetName>Ridgecrest</StreetName> <StreetNamePostType>Drive</StreetNamePostType> , <PlaceName>Bethel</PlaceName> , <StateName>AK</StateName> <ZipCode>99559</ZipCode> </AddressString>
-    <AddressString> <AddressNumber>123</AddressNumber> <StreetNamePreDirectional>E.</StreetNamePreDirectional> <StreetName>Main</StreetName> <StreetNamePostType>Road</StreetNamePostType> , <OccupancyType>Suite</OccupancyType> <OccupancyIdentifier>A.</OccupancyIdentifier> , <PlaceName>Juneau</PlaceName> , <StateName>AK</StateName> <ZipCode>99801</ZipCode> </AddressString> 
+    <AddressString> <AddressNumber>123</AddressNumber> <StreetNamePreDirectional>E.</StreetNamePreDirectional> <StreetName>Main</StreetName> <StreetNamePostType>Road</StreetNamePostType> , <OccupancyType>Suite</OccupancyType> <OccupancyIdentifier>A.</OccupancyIdentifier> , <PlaceName>Juneau</PlaceName> , <StateName>AK</StateName> <ZipCode>99801</ZipCode> </AddressString>
   </AddressCollection>
 ```
 
@@ -149,7 +146,7 @@ type 'oops' if you make a labeling error
 
 During the labeling process, the program will ask you to match portions of the address to the **tags** that you can see above. Tagging an address is like diagramming a sentence: it breaks down the address into its smallest components and describes how each part relates to the whole.
 
-Our tagging standard can take some time to get used to if you're not familiar with it. If you're confused about how to tag certain parts of an address, [follow the short guidelines in our documentation](http://usaddress.readthedocs.io/en/latest/#details) or consult the [official data standard](http://www.urisa.org/clientuploads/directory/GMI/Professional%20Practice/Address%20Standard/AddressStandard_Approved_Apr11_02Content.pdf). For more complicated questions, feel free to [open an issue in this repo](https://github.com/datamade/usaddress/issues/new) and the DataMade team can weigh in on your problem. 
+Our tagging standard can take some time to get used to if you're not familiar with it. If you're confused about how to tag certain parts of an address, [follow the short guidelines in our documentation](http://usaddress.readthedocs.io/en/latest/#details) or consult the [official data standard](http://www.urisa.org/clientuploads/directory/GMI/Professional%20Practice/Address%20Standard/AddressStandard_Approved_Apr11_02Content.pdf). For more complicated questions, feel free to [open an issue in this repo](https://github.com/datamade/usaddress/issues/new) and the DataMade team can weigh in on your problem.
 
 After the instructions print, the program will begin prompting you to label addresses. Each prompt starts by using the current model to make an educated guess about the proper labels:
 
@@ -207,11 +204,11 @@ What is '19006-8504' ? If ZipCode hit return
 <return>
 ```
 
-Once you've evaluated every portion of the address, the program will move on to another example and the process will start over. 
+Once you've evaluated every portion of the address, the program will move on to another example and the process will start over.
 
 Note that you can make use of helper commands to speed up the labeling process. If you decide that an address is not representative and you want to skip it, you can enter `s`; or if you want to quit labeling entirely, you can enter `f` and the program will stop, saving your progress in a secondary file. If you make a mistake during the labeling process itself, you can always enter `oops` to restart the labelling of the current address or `help` to see a list of possible labels.
 
-After the program has prompted you to label every address, navigate to the target directory that you specified and confirm that a new XML file has been created (in this case, `training/new_addresses.xml`). 
+After the program has prompted you to label every address, navigate to the target directory that you specified and confirm that a new XML file has been created (in this case, `training/new_addresses.xml`).
 
 **3. Train the model.**
 
@@ -229,7 +226,7 @@ For stable releases, the DataMade team collects canonical training data in the f
 parserator train training/labeled.xml usaddress
 ```
 
-But usaddress can also accept *multiple* files to use as training data. As you develop a new model, you should enforce separation between new and canonical training data to make debugging easier. So you can feed the model both files as input, separated by a comma:
+But usaddress can also accept _multiple_ files to use as training data. As you develop a new model, you should enforce separation between new and canonical training data to make debugging easier. So you can feed the model both files as input, separated by a comma:
 
 ```
 parserator train training/labeled.xml,training/new_addresses.xml usaddress
@@ -249,7 +246,7 @@ This output confirms that usaddress has learned from the new training data. Nice
 
 **4. Test the model.**
 
-It's certainly exciting to know that you've added new training data to usaddress and changed the model, but it won't be very helpful unless we can verify that parsing behavior has actually *improved* based on the changes. To do that, you can check the model against a set of **testing data**.
+It's certainly exciting to know that you've added new training data to usaddress and changed the model, but it won't be very helpful unless we can verify that parsing behavior has actually _improved_ based on the changes. To do that, you can check the model against a set of **testing data**.
 
 Recall that you set aside a small portion of your addresses for testing in the CSV file `measure_performance/test_data/new_tests.csv`. Now that usaddress has (hopefully) learned to parse your new patterns, you can spot check it by labeling the testing data:
 
@@ -259,13 +256,13 @@ parserator label measure_performance/test_data/new_tests.csv measure_performance
 
 The labeling program will launch, and if usaddress can suggest the proper labels for your testing data, you'll know that it has correctly learned the patterns you identified. (If, on the other hand, usaddress seems to fail on those patterns, you'll have to go back and add more examples of that pattern to your training data and retrain the model following steps 2 and 3.)
 
-But it's not good enough to confirm that usaddress has learned new patterns – you also need to confirm that it hasn't *unlearned* old patterns in the process of incorporating your new training data. To do that, run the usaddress testing suite with the following command:
+But it's not good enough to confirm that usaddress has learned new patterns – you also need to confirm that it hasn't _unlearned_ old patterns in the process of incorporating your new training data. To do that, run the usaddress testing suite with the following command:
 
 ```
 nosetests .
 ```
 
-The output will fill your screen with a big block of dots (.) and/or Fs (F). Each dot corresponds to a test that *passed* (meaning that usaddress produced the expected parse for an address) while each F corresponds to a test that *failed* (meaning that usaddress failed to properly parse the address). 
+The output will fill your screen with a big block of dots (.) and/or Fs (F). Each dot corresponds to a test that _passed_ (meaning that usaddress produced the expected parse for an address) while each F corresponds to a test that _failed_ (meaning that usaddress failed to properly parse the address).
 
 If all the tests passed, look below the results block and you'll see a short confirmation output:
 
@@ -282,7 +279,7 @@ If any of our tests failed, however, things become more complicated. The output 
 
 **5a. Repeat steps 1-4 until the tests pass.**
 
-If you've arrived at this step, it means that some of your tests failed. Uh oh! 
+If you've arrived at this step, it means that some of your tests failed. Uh oh!
 
 To cut a new release of usaddress, all canonical tests need to pass. That means before sharing your work, you'll have to go back and retrain the model to properly parse the addresses that it's failing on.
 
@@ -294,11 +291,10 @@ Once all of the tests are passing, you're safe to move on to step 5b.
 
 If you've arrived at this step, it means that all of your new and old tests passed and your model is good to go. Fantastic!
 
-Now it's time to share your work. GitHub provides a powerful way of sharing code through the *pull request* feature (and has a [really nice guide](https://help.github.com/articles/creating-a-pull-request/) for first-timers explaining how it works). Open up a new pull request and give us a short description of what you changed: What address patterns did you fix? Where did you store your training data? How many new examples/tests did you add? The clearer your description of your work, the easier it will be for the DataMade team to determine whether it's ready to go.
+Now it's time to share your work. GitHub provides a powerful way of sharing code through the _pull request_ feature (and has a [really nice guide](https://help.github.com/articles/creating-a-pull-request/) for first-timers explaining how it works). Open up a new pull request and give us a short description of what you changed: What address patterns did you fix? Where did you store your training data? How many new examples/tests did you add? The clearer your description of your work, the easier it will be for the DataMade team to determine whether it's ready to go.
 
 If you made it this far, **great job!** We appreciate your dedication to making usaddress better for the whole community. Drop us a line on [GitHub](https://github.com/datamade) or on [Twitter](https://twitter.com/DataMadeCo) and let us know how you're using usaddress.
 
-Need help?
-----------
+## Need help?
 
 We want contributing to usaddress to be as painless as possible. If you run into problems following any of our documentation, feel free to [open an issue](https://github.com/datamade/usaddress/issues/new) describing your problem and the DataMade team would be glad to help.

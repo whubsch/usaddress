@@ -8,30 +8,29 @@ except ImportError:
     )
 
 setup(
-    version='0.5.10',
-    url='https://github.com/datamade/usaddress',
-    description='Parse US addresses using conditional random fields',
-    name='usaddress',
-    packages=['usaddress'],
-    package_data={'usaddress': ['usaddr.crfsuite']},
-    license='The MIT License: http://www.opensource.org/licenses/mit-license.php',
-    install_requires=['python-crfsuite>=0.7',
-                      'future>=0.14',
-                      'probableparsing'],
+    version="0.5.10",
+    url="https://github.com/datamade/usaddress",
+    description="Parse US addresses using conditional random fields",
+    name="usaddress",
+    packages=["usaddress"],
+    package_data={"usaddress": ["usaddr.crfsuite"]},
+    license="The MIT License: http://www.opensource.org/licenses/mit-license.php",
+    install_requires=["python-crfsuite>=0.7", "future>=0.14", "probableparsing"],
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 2 :: Only',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Scientific/Engineering',
-        'Topic :: Scientific/Engineering :: Information Analysis'],
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: POSIX",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 2 :: Only",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+    ],
     long_description="""
     usaddress is a python library for parsing unstructured address strings into
     address components, using advanced NLP methods.
@@ -47,5 +46,5 @@ setup(
      ('100', 'OccupancyIdentifier'),
      ('Chicago,', 'PlaceName'),
      ('IL', 'StateName')]
-    """
+    """,
 )
