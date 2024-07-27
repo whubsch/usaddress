@@ -15,7 +15,7 @@ UNCERTAIN LABEL:  {repeated_label}
 
 To report an error in labeling a valid name, open an issue at {repo_url}."""
 
-    def __init__(self, original_string, parsed_string, repeated_label):
+    def __init__(self, original_string: str, parsed_string: list, repeated_label):
 
         self.message = self.MESSAGE.format(
             original_string=original_string,

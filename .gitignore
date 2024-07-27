@@ -52,7 +52,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-*.crfsuite
 *.csv
 *.txt
 
@@ -61,3 +60,4 @@ docs/_build/
 *#
 
 .DS_Store
+scripts/*scratch*.py

@@ -35,8 +35,8 @@ PARENT_LABEL = "AddressString"
 GROUP_LABEL = "AddressCollection"
 
 MODEL_FILE = "usaddr.crfsuite"
-# MODEL_PATH = os.path.split(os.path.abspath(__file__))[0] + "/" + MODEL_FILE
-MODEL_PATH = "/Users/whubsch/Documents/usaddress/raw/usaddr.crfsuite"
+DIR_PATH = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+MODEL_PATH = os.path.join("", DIR_PATH, "raw", MODEL_FILE)
 
 DIRECTIONS = set(
     [
